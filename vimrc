@@ -1,6 +1,13 @@
 " Easy version Vimrc
 
+let mapleader = ","
+set autochdir
+set ignorecase
 set nocompatible
+set shiftwidth =4
+set tabstop =4
+
+set fileencodings=ucs-bom,utf-8,cp936,gb18030,big5,euc-jp,euc-kr,latin1
 filetype off
 
 if has("win32") || has("win64")
@@ -52,9 +59,44 @@ Bundle 'honza/vim-snippets'
 Bundle 'tpope/vim-surround'
 Bundle 'tpope/vim-unimpaired'
 Bundle 'mattn/zencoding-vim'
+Bundle 'vim-scripts/mru.vim'
+Bundle 'AuthorInfo'
+"Bundle 'vim-scripts/taglist.vim'
+Bundle 'vim-scripts/php.vim'
+Bundle 'vim-scripts/TeTrIs.vim'
+Bundle 'taglist-plus'
+Bundle 'vim-scripts/sudo.vim'
+Bundle 'vim-scripts/FencView.vim'
+Bundle 'digitaltoad/vim-jade'
+Bundle 'jade.vim'
+Bundle 'Sass'
+Bundle 'less.vim'
 
 
-filetype plugin indent on
+filetype plugin indent  on
+
+"colorscheme
+colorscheme badwolf
+
+" =============
+"  plugin config
+" =============
+
+"AuthorInfo
+let g:vimrc_author='nunumick'
+let g:vimrc_email='nunumick@gmail.com'
+let g:vimrc_homepage='http://nunumick.me'
+
+"taglist
+let Tlist_Ctags_Cmd = '/usr/local/bin/ctags'
+let Tlist_Show_One_File = 1            "不同时显示多个文件的tag，只显示当前文件的
+let Tlist_Exit_OnlyWindow = 1          "如果taglist窗口是最后一个窗口，则退出vim
+let Tlist_Use_Right_Window = 1         "在右侧窗口中显示taglist窗口
+let Tlist_JS_Settings = 'javascript;s:string;a:array;o:object;f:function'
+
+"fencview
+"let g:fencview_autodetect = 1   #打开文件时自动识别编码
+"let g:fencview_checklines = 10 #检查前后10行来判断编码
 
 " =============
 "  custom key
@@ -69,6 +111,12 @@ noremap <BS> X
 noremap <C-c> y
 noremap <C-v> P
 
+" search word form dir
+" nnoremap gr :grep <cword> *<CR>
+" nnoremap Gr :grep <cword> %:p:h/*<CR>
+" nnoremap gR :grep '\b<cword>\b' *<CR>
+" nnoremap GR :grep '\b<cword>\b' %:p:h/*<CR>
+
 " cancel searched highlight
 noremap ; :nohlsearch<CR>
 
@@ -82,6 +130,11 @@ imap <DOWN> <ESC>gj<RIGHT>i
 
 " select ALL
 map <C-A> ggVG
+
+nmap <Leader>mr :MRU<cr>
+nmap <Leader>dd :NERDTree<cr>
+nmap <Leader>ls :Tlist<cr>
+nmap <Leader>fa :FencAutoDetect<cr>
 
 " Use neocomplcache
 "let g:neocomplcache_enable_at_startup = 1

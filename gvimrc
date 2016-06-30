@@ -1,3 +1,6 @@
+set autoindent
+set smartindent
+set ignorecase
 set guioptions=ce
 set antialias
 set linespace=2
@@ -28,7 +31,7 @@ if has("win32") || has("win64")
 end
 
 if has("gui_macvim")
-  set transparency=0
+  set transparency=15
 
   " move a line of text using ALT+[jk] or Comamnd+[jk] on mac
   nmap <D-j> mz:m+<cr>`z
