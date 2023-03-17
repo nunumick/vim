@@ -41,7 +41,7 @@ set incsearch                         " incremental search
 syntax enable
 set t_Co=256
 try
-  colorscheme Railscasts
+  colorscheme one
 catch
 endtry
 
@@ -120,7 +120,7 @@ cnoremap %% <C-R>=expand('%:h').'/'<CR>
 "  custom by myself
 " ======================================
 " Color Scheme for Tomorrow-Night
-colorscheme Tomorrow-Night
+colorscheme one 
 
 " show file name in tablabel
 set guitablabel=%t
