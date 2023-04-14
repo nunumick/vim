@@ -1,3 +1,42 @@
+"=======================
+" custom settings here
+" key mapping guide
+" basic:
+"   j: move down
+"   k: move up
+"   kj: esc
+"   gj: PageDown
+"   gk: PageUp
+"   gu: JumpUp
+"   gi: JumpDown
+"   nt,gt: Next Tab
+"   nT,gT: Pre Tab
+"   ctrl-w(h\j\k\l): window change
+"   0: goto line start
+"   g ctrl+g: count words
+"   zf: create code fold
+"   zm/zc: close fold
+"   zo/zr: open fold
+"   zd/zD: remove fold
+"
+" advance:
+"   tab: indent
+"   ,dd: NERDTreeFind
+"   ,mr: MRU
+"   ,s: ack keyword search
+"   ,a: open ack
+"   ,cc: comment
+"   ,cu: uncomment
+"   ctrl-p: ctrlp search filename
+"   ctrl-j: coc goto definition
+"   dg: diagnostic next
+"   gd: diagnostic prev
+"   K: ShowDocumentation
+"   ,as: coc actions
+"   ,qf: coc quickfix
+"   ,re: coc refactor
+"=======================
+
 set nocompatible                      " not compatible with the old-fashion vi mode
 set backspace=2                       " allow backspacing over everything in insert nc >kkmode
 set history=1000                      " keep 1000 lines of command line history
@@ -40,10 +79,10 @@ set hlsearch                          " search highlighting
 set incsearch                         " incremental search
 syntax enable
 set t_Co=256
-try
-  colorscheme one
-catch
-endtry
+"try
+  "colorscheme one
+"catch
+"endtry
 
 set nobackup                          " no *~ backup files
 set noswapfile
@@ -82,6 +121,8 @@ set wildignore+=*.DS_Store
 set wildignore+=log/**
 set wildignore+=tmp/**
 set wildignore+=*.doc,*.xls,*.docx,*.xlsx
+set wildignore+=*/tmp/*,*.so,*.swp,*.zip     " MacOSX/Linux
+set wildignore+=*\\tmp\\*,*.swp,*.zip,*.exe  " Windows
 
 " cursorline switched while focus is switched to another split window
 autocmd WinEnter * setlocal cursorline
@@ -90,15 +131,42 @@ autocmd WinLeave * setlocal nocursorline
 " ======================================
 "  custom key and plugin configurations
 " ======================================
+
+"AuthorInfo
+let g:vimrc_author='nunumick'
+let g:vimrc_email='nunumick@gmail.com'
+let g:vimrc_homepage='https://nunumick.github.io'
+
 " remove tailing whitespace
 autocmd BufWritePre * :%s/\s\+$//e
 
 " comment
-map <Leader><Leader> <Leader>c<space>
+map <Leader><Leader> <Leader>cc
+
+" Color Scheme for Tomorrow-Night
+set background=dark
+colorscheme one
+
+" show file name in tablabel
+set guitablabel=%t
+
+" color scheme selector
+"map <leader>sc :SelectColorS<CR>
 
 " next and prev tab
-noremap <F7> gT
-noremap <F8> gt
+"noremap <F7> gT
+"noremap <F8> gt
+noremap nT gT
+noremap nt gt
+
+" quick esc
+inoremap kj <ESC>
+
+" PageUp&PageDown
+noremap gj <C-f>
+noremap gk <C-b>
+noremap gu <C-u>
+noremap gi <C-d>
 
 " identation
 nmap <TAB> v>
@@ -109,36 +177,76 @@ vmap <S-TAB> <gv
 " remap VIM 0
 map 0 ^
 
+" coc diagnostic
+" dig dig dig
+nmap <silent> dg <Plug>(coc-diagnostic-next)
+nmap <silent> gd <Plug>(coc-diagnostic-prev)
+
+" coc goto code
+nmap <silent> <C-j> <Plug>(coc-definition)
+"nmap <silent> <C-j>j <Plug>(coc-type-definition)
+" back ctrl-o default
+"nmap <C-k> <C-o>
+
 " return current opened file's dirctory
 cnoremap %% <C-R>=expand('%:h').'/'<CR>
+
+" ctrlp
+let g:ctrlp_map = '<c-p>'
+let g:ctrlp_cmd = 'CtrlP'
+" the nearest ancestor that contains one of these directories or files: .git .hg .svn .bzr
+" since vim-rooter
+"let g:ctrlp_working_path_mode = 'ra'
+let g:ctrlp_custom_ignore = 'node_modules\|DS_Store\|git'
+
+" Ack
+" 搜索完后不自动跳到第一个结果文件
+cnoreabbrev Ack Ack!
+" 设置搜索快捷键为<leader> + a
+nnoremap <Leader>a :Ack!<Space>
+" ack的选项设置
+let g:ack_default_options = " -s -H --nocolor --nogroup --column --smart-case --follow"
+" 如果不输入任何搜索参数，则默认以光标下的单词为搜索条件，并把它映射到<leader> + s上
+nnoremap <leader>s :Ack!<CR>
+" 高亮搜索结果
+let g:ackhighlight = 1
 
 " quick open vimrc in a new tab
 "nmap <leader>v :tabe $MYVIMRC<CR>
 "map <leader>0 :topleft 100 :split README.md<CR>
 
-" ======================================
-"  custom by myself
-" ======================================
-" Color Scheme for Tomorrow-Night
-colorscheme one 
-
-" show file name in tablabel
-set guitablabel=%t
-
-" color scheme selector
-map <leader>sc :SelectColorS<CR>
-
 " quick close window
-map <leader>w :close<CR>
+"map <leader>w :close<CR>
 
-" quick source format
-map <leader>sf gg=G
+" quick source format all
+map <leader>fa gg=G
+
+" mru
+nmap <Leader>mr :MRU<cr>
+
+"Nerdtree: use NERDTreeFind to lock file
+nmap <Leader>dd :NERDTreeFind<cr>
 
 " quick change split window
-nnoremap <C-j> <C-w>j
-nnoremap <C-k> <C-w>k
-nnoremap <C-h> <C-w>h
-nnoremap <C-l> <C-w>l
+"nnoremap <C-j> <C-w>j
+"nnoremap <C-h> <C-w>h
+"nnoremap <C-k> <C-w>k
+"nnoremap <C-l> <C-w>l
+
+" openAI labs
+nnoremap <leader>ai :AI<CR>
+xnoremap <leader>ai :AI<CR>
+
+" key binding with custom context
+xnoremap <leader>add :AIEdit<Space>
+nnoremap <leader>add :AIEdit<Space>
+
+" key binding to trigger chat
+xnoremap <leader>chat :AIChat <CR>
+nnoremap <leader>chat :AIChat <CR>
+
+" command with custom context (vim-ai functions: AIRun, AIEditRun, AIChatRun)
+"command! -range -nargs=? AICode <line1>,<line2>call AIRun("Programming syntax is " . &filetype . ", " . <f-args>)
 
 highlight whitespaceEOL term=reverse ctermbg=red guibg=red
 match whitespaceEOL /\s\+\(\%#\)\@!$/

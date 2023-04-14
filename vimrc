@@ -1,4 +1,9 @@
 " Easy version Vimrc
+" Common here
+" Custom configuration, see plugin/settings/Settings.vim.
+" 1) ./vimrc
+" 2) ./plugin/settings/Settings.vim
+" 3) ./gvimrc
 
 let mapleader = ","
 set autochdir
@@ -40,6 +45,7 @@ Plug 'mileszs/ack.vim'
 Plug 'kien/ctrlp.vim'
 Plug 'neoclide/coc.nvim', {'branch': 'release'}
 Plug 'yegappan/mru'
+Plug 'airblade/vim-rooter'
 
 "code addons
 Plug 'pangloss/vim-javascript'
@@ -48,6 +54,10 @@ Plug 'maxmellon/vim-jsx-pretty'
 Plug 'ap/vim-css-color'
 Plug 'cakebaker/scss-syntax.vim'
 Plug 'rakr/vim-one'
+
+"labs
+" ./install.sh script will automatically install openai-python
+Plug 'madox2/vim-ai', { 'do': './install.sh' }
 
 "disabled addons
 "Plug 'Raimondi/delimitMate'
@@ -86,10 +96,10 @@ call plug#end()
 "   filetype indent off   " Disable file-type-specific indentation
 "   syntax off            " Disable syntax highlighting
 
-filetype plugin indent  on
-colorscheme one
-set background=dark
-syntax on
+"filetype plugin indent  on
+"colorscheme one
+"set background=dark
+"syntax on
 
 " =============
 "  plugin config
@@ -104,11 +114,6 @@ set fillchars+=stl:\ ,stlnc:\
 set term=xterm-256color
 set termencoding=utf-8
 
-"AuthorInfo
-let g:vimrc_author='nunumick'
-let g:vimrc_email='nunumick@gmail.com'
-let g:vimrc_homepage='https://nunumick.github.io'
-
 "taglist
 "let Tlist_Ctags_Cmd = '/usr/local/bin/ctags'
 "let Tlist_Show_One_File = 1            "不同时显示多个文件的tag，只显示当前文件的
@@ -121,7 +126,7 @@ let g:vimrc_homepage='https://nunumick.github.io'
 "let g:fencview_checklines = 10 #检查前后10行来判断编码
 
 " =============
-"  custom key
+"  official key mappings
 "  see :h mapmode
 " =============
 " add a new line without entering insert mode
@@ -144,18 +149,16 @@ noremap <C-v> P
 noremap ; :nohlsearch<CR>
 
 " navigating for long lines
-map j gj
-map k gk
-map <UP> gk
-map <DOWN> gj
+noremap j gj
+noremap k gk
+noremap <UP> gk
+noremap <DOWN> gj
 imap <UP> <ESC>gk<RIGHT>i
 imap <DOWN> <ESC>gj<RIGHT>i
 
 " select ALL
 map <C-A> ggVG
 
-nmap <Leader>mr :MRU<cr>
-nmap <Leader>dd :NERDTree<cr>
 "nmap <Leader>ls :Tlist<cr>
 "nmap <Leader>fa :FencAutoDetect<cr>
 "nmap <Leader>ff :CommandT<cr>
@@ -323,6 +326,20 @@ nnoremap <silent><nowait> <space>j  :<C-u>CocNext<CR>
 nnoremap <silent><nowait> <space>k  :<C-u>CocPrev<CR>
 " Resume latest coc list
 nnoremap <silent><nowait> <space>p  :<C-u>CocListResume<CR>
+
+" coc-snippets config
+" Use <C-l> for trigger snippet expand.
+imap <C-l> <Plug>(coc-snippets-expand)
+" Use <C-j> for select text for visual placeholder of snippet.
+vmap <C-j> <Plug>(coc-snippets-select)
+" Use <C-j> for jump to next placeholder, it's default of coc.nvim
+let g:coc_snippet_next = '<c-j>'
+" Use <C-k> for jump to previous placeholder, it's default of coc.nvim
+let g:coc_snippet_prev = '<c-k>'
+" Use <C-j> for both expand and jump (make expand higher priority.)
+imap <C-j> <Plug>(coc-snippets-expand-jump)
+" Use <leader>x for convert visual selected code to snippet
+xmap <leader>x  <Plug>(coc-convert-snippet)
 
 "neocomplete
 "let g:neocomplete#enable_at_startup = 1

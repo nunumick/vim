@@ -1,82 +1,50 @@
-**This Vim configurations base form [kaochenlong/eddie-vim](https://github.com/kaochenlong/eddie-vim)**
-
-My personal Vim configurations and some plugins which I used in my daily job.
-
-I put Vim related settings in `plugin/settings/Settings.vim`, and isolate other plugins' settings in `plugin/settings` directory.
-
-you can link your `~/.vimrc` to any one of them as you wish :)
+## Note
+change vim plugin manager into vim-plug.
 
 ## Usage
 
 ### Installation and Requisites:
-( **Windows users** see [Vundle for Windows](https://github.com/gmarik/vundle/wiki/Vundle-for-Windows) PLZ)
 
-1. BACKUP your `.vim` directory and `.vimrc` first.(IMPORTANT!)
+1. backup `.vim` directory and `.vimrc` first.(IMPORTANT!)
 
-2. `cd ~` to change directory to your home directory if your like.
+2. `cd ~` to change directory to home directory.
 
-3. copy files to your home directory:
+3. copy files to home directory:
 
-        git clone git://github.com/ywjno/vundle-vimfiles.git
+```bash
+        git clone git://github.com/nunumick/vim.git
+```
 
-4. make a symbolic link `.vim` to `vundle-vimfiles` that you just cloned, or just rename it to `.vim` also be fine:
+4. make a symbolic link `.vim` to `vim` that we just cloned.
 
-        ln -s vundle-vimfiles ~/.vim
+```bash
+        ln -s vim ~/.vim
+```
 
-5. link the vimrc to
+5. link the vimrc
 
+```bash
         ln -s ~/.vim/vimrc ~/.vimrc
+```
 
-6. if you use GUI version VIM, such as MacVim or GVim, you can also link to `.gvimrc`:
+6. link the gvimrc
 
+```bash
         ln -s ~/.vim/gvimrc ~/.gvimrc
+```
 
-7. Setup [Vundle](https://github.com/gmarik/vundle)
+7. install `ack`.
 
-        git clone git://github.com/gmarik/vundle.git ~/.vim/bundle/vundle
+```bash
+        brew install ack
+```
 
-8. if you use Powerline under Ubuntu or something which can not show the correct icons/fonts on the bottom, you can check [this link](https://github.com/scotu/ubuntu-mono-powerline), it looks pretty nice.
 
-9. you may need to install `ack` or `silver searcher` first if you use `ack.vim`.
+### Install plugins:
 
-### Install bundles:
+Launch `vim`, run `:PlugInstall`
 
-Launch `vim`, run `:BundleInstall`  (or `vim +BundleInstall +qall` for CLI lovers)
+### Update plugins:
 
-### Update bundles:
+Launch `vim`, run `:PlugUpdate`
 
-Launch `vim`, run `:BundleInstall!`
-
-### Features and Key Mappings:
-
-1. Resize splited windows automatically, so that you  get a bigger editing room if you're working with a smaller screen. (stole from [Gary Bernhardt](https://github.com/garybernhardt))
-
-2. Toggle between working mode and presentation mode by `<leader>z`, but only work in GUI version Vim. You can check [here](http://blog.eddie.com.tw/2012/03/14/switch-to-presentation-mode/) to see how it looks like. (stole from [Mike Skalnik](https://github.com/skalnik))
-
-3. some usually used key mappings in normal mode:
-
-    a. `<F1>` to toggle a Calendar window on and off.
-
-    b. `<F2>` to toggle NERDTree on and off.
-
-    c. `<F4>` to toggle Tagbar window.
-
-    d. `<F5>` is the script runner, according to it's filetype, it will run Ruby(*.rb) ,Python(*.py) or Javascript(*.js) file(SpiderMonkey is needed), even CoffeeScript(*.coffee, but you may have to install CoffeeScript first). If the filetype is VimScript, `<F5>` will run `:source %` for you.
-
-    e. `<F7>` to switch to previous tab, and `<F8>` to the next tab.
-
-    f. hit `<ctrl>p` will launch a quick window to match keywords from your current working directory, not only file name, but also path name. And `<ctrl>w u` will match from your MRU(Mostly Recent Used) files, which is also frequently used.
-
-    g. hit `<leader>` twice to toggle comment on and off.
-
-    h. `<tab>` and `<shift><tab>` to increase and decrease the syntax identation.
-
-4. Remove tailing whitespace automatically while saving.
-
-## FAQ
-
-if you can not found `ctags` command, just find your ctags path and replace my settings in `plugin/settings/Ctags.vim` file:
-
-    let g:tagbar_ctags_bin = '/your/path/to/ctags'
-
-and [Exuberant Ctags](http://ctags.sourceforge.net/) is recommended.
