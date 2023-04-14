@@ -1,0 +1,9 @@
+# start with: brew install ack
+# 过滤目录
+--ignore-dir=.git
+--ignore-dir=.ice
+--ignore-dir=.teamix
+# 过滤掉*.org文件，ext为后缀的意思
+--ignore-file=ext:orig
+# 过滤掉tags文件，is为精确匹配
+--ignore-file=is:tags
